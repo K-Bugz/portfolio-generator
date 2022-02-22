@@ -2,7 +2,6 @@ const inquirer = require('inquirer'); // imports the inquirer module into the pr
 const fs = require('fs'); // imports the fs module into the project
 const generatePage = require('./src/page-template'); // locally written generate page module loaded in. 
 
-// function promptUser
 const promptUser = () => {
     return inquirer.prompt([
         {
@@ -48,10 +47,10 @@ const promptUser = () => {
 
 const promptProject = portfolioData => {
     console.log(`
-  =================
-  Add a New Project
-  =================
-  `);
+=================
+Add a New Project
+=================
+`);
 
     // If there's no 'projects' array property, create one
     if (!portfolioData.projects) {
@@ -130,11 +129,18 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        const pageHTML = generatePage(portfolioData);
-
-        fs.writeFile('./index.html', pageHTML, err => {
-            if (err) throw new Error(err);
-
-            console.log('Page created! Check out index.html in this directory to see it!');
-        });
+        return generatePage(portfolioData);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
     });
