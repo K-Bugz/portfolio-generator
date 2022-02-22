@@ -1,6 +1,6 @@
 const inquirer = require('inquirer'); // imports the inquirer module into the project
-const fs = require('fs'); // imports the fs module into the project
 const generatePage = require('./src/page-template'); // locally written generate page module loaded in. 
+const { writeFile, copyFile } = require('./utils/generate-site'); // locally written generate-site
 
 const promptUser = () => {
     return inquirer.prompt([
