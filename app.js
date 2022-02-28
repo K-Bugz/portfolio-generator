@@ -125,10 +125,10 @@ Add a New Project
             }
         });
 };
-
-promptUser()
-    .then(promptProject)
-    .then(portfolioData => {
+// in terms of project 10
+promptUser() // questions functions
+    .then(promptProject) // writefile
+    .then(portfolioData => { // 
         return generatePage(portfolioData);
     })
     .then(pageHTML => {
